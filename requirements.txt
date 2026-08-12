@@ -1,0 +1,20 @@
+# Fase 1 - Datos
+pandas==3.0.5
+numpy==2.5.2
+matplotlib==3.11.1
+seaborn==0.13.2
+jupyter==1.1.1
+
+# Fase 2 - ML
+scikit-learn
+joblib
+
+# Fase 3 - Backend
+fastapi
+uvicorn[standard]
+
+# Fase 4 - Agente
+langchain
+langgraph
+python-dotenv
+httpx
