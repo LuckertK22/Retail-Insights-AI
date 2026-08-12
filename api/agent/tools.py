@@ -4,10 +4,11 @@ api/agent/tools.py
 Tools (funciones) que el agente LangGraph puede invocar.
 """
 
+import os
 import httpx
 from langchain_core.tools import tool
 
-API_BASE = "http://localhost:8000"
+API_BASE = os.environ.get("API_BASE", "http://localhost:8000")
 
 
 @tool

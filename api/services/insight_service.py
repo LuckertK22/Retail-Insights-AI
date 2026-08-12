@@ -4,8 +4,11 @@ api/services/insight_service.py
 Servicio que cachea los insights del dataset al startup.
 """
 
+import logging
 import pandas as pd
 from pathlib import Path
+
+logger = logging.getLogger(__name__)
 
 DATA_PATH = Path(__file__).parent.parent.parent / "data" / "superstore_clean.csv"
 
@@ -16,11 +19,17 @@ class InsightService:
 
     def load(self):
         if self.insights is None:
-            df = pd.read_csv(DATA_PATH)
-            self.insights = self._compute(df)
-            print(f"Insights cacheados: {len(df)} filas")
+            try:
+                df = pd.read_csv(DATA_PATH)
+                self.insights = self._compute(df)
+                logger.info(f"Insights cacheados: {len(df)} filas")
+            except Exception as e:
+                logger.error(f"Error al cargar insights: {e}")
+                raise
 
     def get(self):
+        if self.insights is None:
+            raise RuntimeError("Insights no cargados")
         return self.insights
 
     def is_loaded(self):
