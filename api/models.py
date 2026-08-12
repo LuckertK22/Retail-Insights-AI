@@ -18,6 +18,7 @@ class PredictInput(BaseModel):
     Quantity: int = Field(..., ge=1, example=3)
     Year: int = Field(..., ge=2014, le=2017, example=2017)
     Month: int = Field(..., ge=1, le=12, example=11)
+    DayOfWeek: int = Field(default=0, ge=0, le=6, example=0, description="Día de la semana: 0=Lunes, 6=Domingo")
 
 
 class PredictOutput(BaseModel):

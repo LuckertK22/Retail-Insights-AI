@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Lint with ruff
+        run: |
+          pip install ruff
+          ruff check api/ ml/ --fix
+
+      - name: Type check with mypy
+        run: |
+          pip install mypy
+          mypy api/ ml/ --ignore-missing-imports
+
+      - name: Test API startup
+        run: |
+          pip install httpx
+          timeout 10 python -c "
+          from api.main import app
+          from api.services.model_service import model_service
+          from api.services.insight_service import insight_service
+          print('Import check OK')
+          " || exit 1

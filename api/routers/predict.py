@@ -28,7 +28,7 @@ def build_feature_vector(input_data: PredictInput) -> np.ndarray:
         input_data.Discount,
         input_data.Year,
         input_data.Month,
-        0,
+        input_data.DayOfWeek,
         1 if input_data.Discount > 0 else 0,
         1 if input_data.Segment == "Consumer" else 0,
         1 if input_data.Segment == "Corporate" else 0,
