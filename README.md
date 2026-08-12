@@ -28,6 +28,24 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
+### 2. Descargar el dataset
+
+1. Ir a [Kaggle - Superstore Sales Dataset](https://www.kaggle.com/datasets/vivek468/superstore-dataset-final)
+2. Descargar y extraer el CSV
+3. Guardar el archivo como `data/superstore.csv`
+
+### 3. Generar el modelo
+
+```bash
+# Generar dataset limpio (opcional, ya viene en el repo)
+python -m jupyter nbconvert --to notebook --execute notebooks/exploracion.ipynb
+
+# Generar el modelo ML
+python ml/train_model.py
+```
+
+Esto crea `data/superstore_clean.csv` y `ml/model.pkl`.
+
 ### 2. Configurar variables de entorno
 
 ```bash
@@ -261,6 +279,12 @@ curl -X POST http://localhost:8000/chat/ \
   -H "Content-Type: application/json" \
   -d '{"message":"¿Cuál es la categoría que más vende?"}'
 ```
+
+---
+
+## Nota sobre datos
+
+Los archivos de datos (CSV) y el modelo (`model.pkl`) **no están en el repositorio** (están en `.gitignore`). Necesitás descargarlos como se indica arriba.
 
 ---
 
